@@ -108,12 +108,11 @@
       '<circle cx="45" cy="58" r="1.1" fill="#bd8418"></circle><circle cx="68" cy="56" r="1.2" fill="#bd8418"></circle>' +
       '</g></svg>',
     spoon:
-      '<svg viewBox="0 0 40 116" fill="none" style="width:100%;height:100%;display:block;overflow:visible;filter:drop-shadow(1.5px 4px 3px rgba(40,35,20,0.16));">' +
-      '<path d="M20 114 C11 114 7 105 7 96 C7 87 13 81 20 81 C27 81 33 87 33 96 C33 105 29 114 20 114 Z" fill="#fbf8ef" stroke="#23201a" stroke-width="2.2" stroke-linejoin="round"></path>' +
-      '<path d="M20 109 C13 109 10 102 10 96 C10 89 14 85 20 85 C26 85 30 89 30 96 C30 102 27 109 20 109 Z" fill="none" stroke="#23201a" stroke-width="1.1"></path>' +
-      '<path d="M17 82 C16 73 16 66 16 59 C11 56 11 49 16 47 C11 44 11 36 17 34 C13 31 14 22 20 20 C26 22 27 31 23 34 C29 36 29 44 24 47 C29 49 29 56 24 59 C24 66 24 73 23 82 Z" fill="#23201a"></path>' +
-      '<path d="M20 20 C16 16 16 9 20 6 C24 9 24 16 20 20 Z" fill="#23201a"></path>' +
-      '<circle cx="20" cy="40.5" r="2.1" fill="#fbf8ef"></circle><circle cx="20" cy="52.5" r="1.8" fill="#fbf8ef"></circle></svg>',
+      '<svg viewBox="0 0 210 130" fill="none" style="width:100%;height:100%;display:block;overflow:visible;filter:drop-shadow(1.5px 4px 3px rgba(40,35,20,0.16));">' +
+      '<path d="M14 84 C10 70 22 56 40 54 C58 52 78 58 86 70 C120 56 158 40 188 26 C198 24 202 34 196 42 C165 52 128 66 92 80 C82 92 66 104 46 104 C30 104 18 96 14 84 Z" fill="#fffdf7" stroke="#23201a" stroke-width="3" stroke-linejoin="round"></path>' +
+      '<path d="M21 80 C25 64 43 58 57 63 C69 67 73 78 65 89" fill="none" stroke="#23201a" stroke-width="2" stroke-linecap="round"></path>' +
+      '<path d="M40 86 q3 7 1 13 M49 82 q4 7 1 14" fill="none" stroke="#23201a" stroke-width="1.6" stroke-linecap="round"></path>' +
+      '<path d="M150 44 q4 -4 8 -1 M158 40 q4 -4 8 -1 M166 36 q4 -4 8 -1" fill="none" stroke="#23201a" stroke-width="1.6" stroke-linecap="round"></path></svg>',
     chilli:
       '<svg viewBox="0 0 46 112" fill="none" style="width:100%;height:100%;display:block;overflow:visible;">' +
       '<g filter="url(#wc)">' +
@@ -158,7 +157,7 @@
     } else if (type === "lemon") {
       d.w = Math.round(s * 1.05); d.h = Math.round(s * 0.92);
     } else if (type === "spoon") {
-      d.w = Math.round(s * 0.42); d.h = Math.round(s * 1.22); d.rotAmp = 3 + Math.random() * 5;
+      d.w = Math.round(s * 1.25); d.h = Math.round(s * 0.77); d.rotAmp = 3 + Math.random() * 5;
     } else if (type === "chilli") {
       const p = chilliPalette[idx % chilliPalette.length];
       d.vars = "--c1:" + p.c1 + ";--c2:" + p.c2 + ";--stem:#6f8a3a;";
