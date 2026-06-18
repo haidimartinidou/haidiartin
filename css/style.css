@@ -1,0 +1,357 @@
+/* =========================================================
+   Haidi Martinidou, personal site
+   Editorial "gallery x lab notebook" aesthetic.
+   Mature, muted, with hand-drawn marginalia used sparingly.
+   Palette pulled from Haidi's own work (forest green + red
+   painting, dusty-blue sea photo). Tweak the variables below.
+   ========================================================= */
+
+:root {
+  --paper: #ffffff;       /* clean white base */
+  --paper-2: #f4f3ef;     /* faint warm grey panel */
+  --ink: #2b2713;         /* dark warm olive-brown */
+  --ink-soft: #6f6a4f;    /* muted text */
+  --line: rgba(43,39,19,0.16);
+
+  /* sunset palette, from @chadeaux's mountains drawing */
+  --sun:   #f3c01b;       /* golden sky */
+  --amber: #d8920f;       /* lower sky */
+  --rust:  #d94f2a;       /* bright orange-red, from the art + the Atheroll poster */
+  --olive: #5f5d24;       /* hills */
+  --olive-deep: #3d3b16;  /* deep foreground */
+  --blue:  #2160c4;       /* the marker hand-lettering */
+  --plum:  #4a235a;       /* the @chadeaux signature */
+
+  /* legacy aliases still referenced by some components */
+  --green: var(--olive);
+  --gold:  var(--amber);
+  --slate: var(--blue);
+
+  --accent: var(--rust);
+
+  --maxw: 1140px;
+  --radius: 12px;
+
+  --font-display: "Caveat Brush", "Comic Sans MS", cursive;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-hand: "Caveat", "Comic Sans MS", cursive;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; position: relative; }
+
+a { color: var(--ink); }
+
+/* hand-drawn marginalia note (used sparingly) */
+.note { font-family: var(--font-hand); font-size: 22px; color: var(--ink-soft); line-height: 1.2; }
+.note.accent { color: var(--accent); }
+
+/* small ink underline accent under a word */
+.mark { position: relative; white-space: nowrap; }
+.mark::after {
+  content: ""; position: absolute; left: -1px; right: -1px; bottom: -4px; height: 7px;
+  background: var(--accent); opacity: .28;
+  border-radius: 50% 40% 55% 45% / 100% 100% 60% 70%;
+  z-index: -1;
+}
+
+/* ---------- nav ---------- */
+.nav { position: sticky; top: 0; z-index: 60;
+  background: color-mix(in srgb, var(--paper) 86%, transparent);
+  backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.nav-inner { max-width: var(--maxw); margin: 0 auto; padding: 16px 28px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.nav .logo { font-family: var(--font-display); font-weight: 600; font-size: 21px;
+  text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: 9px; letter-spacing: .2px; }
+.nav .logo .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--accent); display: inline-block; }
+.nav .links { display: flex; gap: 26px; flex-wrap: wrap; }
+.nav .links a { text-decoration: none; color: var(--ink-soft); font-size: 15px; font-weight: 500;
+  letter-spacing: .3px; position: relative; transition: color .15s ease; }
+.nav .links a:hover, .nav .links a.active { color: var(--ink); }
+.nav .links a.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px;
+  height: 2px; background: var(--accent); }
+
+/* ---------- generic section ---------- */
+section { padding: 76px 0; position: relative; }
+.eyebrow { font-family: var(--font-body); font-size: 12.5px; font-weight: 600;
+  letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
+.section-head { margin-bottom: 40px; max-width: 720px; }
+.section-head h2 { font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(30px, 4.6vw, 46px); line-height: 1.05; margin: 0 0 12px; letter-spacing: -.5px; }
+.section-head p { color: var(--ink-soft); font-size: 18px; margin: 0; }
+
+/* ---------- buttons ---------- */
+.btn { display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-body); font-weight: 500; font-size: 15px; text-decoration: none;
+  color: var(--ink); padding: 11px 20px; border: 1px solid var(--ink); border-radius: 999px;
+  background: transparent; transition: background .15s ease, color .15s ease, transform .12s ease; }
+.btn:hover { background: var(--ink); color: var(--paper); transform: translateY(-1px); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { background: var(--ink); border-color: var(--ink); }
+.btn.ghost { border-color: var(--line); color: var(--ink-soft); }
+.btn.ghost:hover { color: var(--paper); }
+/* disabled button: shown but not clickable until a real file/URL exists */
+.btn[aria-disabled="true"] { opacity: .45; pointer-events: none; cursor: default; border-style: dashed; }
+
+/* a visible, non-clickable placeholder that Haidi fills in later */
+.ph { font-style: normal; color: var(--ink-soft); font-size: 13px;
+  border: 1px dashed var(--line); border-radius: 5px; padding: 2px 8px; white-space: nowrap; }
+.ph::before { content: "✎ "; opacity: .6; }
+
+/* ---------- hero (landing) ---------- */
+.hero { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+  padding: 64px 0 40px; }
+.hero .intro h1 { font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(40px, 6vw, 68px); line-height: 1.02; letter-spacing: -1px; margin: 18px 0 18px; }
+.hero .intro h1 em { font-style: italic; color: var(--accent); }
+.hero .intro p.lead { font-size: 19px; color: var(--ink-soft); max-width: 480px; }
+.hero .cta-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
+
+/* the interactive brain */
+.brain-stage { position: relative; display: grid; place-items: center; min-height: 420px; }
+.brain-stage svg { width: 100%; max-width: 500px; height: auto; overflow: visible; }
+.brain-hemi { cursor: pointer; transition: opacity .2s ease; }
+.brain-stage:hover .brain-hemi { opacity: .55; }
+.brain-stage .brain-hemi:hover { opacity: 1; }
+.hemi-label { font-family: var(--font-hand); font-size: 26px; fill: var(--ink-soft); }
+.hemi-label.art { fill: var(--rust); }
+.hemi-label.sci { fill: var(--slate); }
+.pull-arrow { animation: bob 1.8s ease-in-out infinite; }
+@keyframes bob { 0%,100% { transform: translate(0,0); } 50% { transform: translate(7px,-4px); } }
+
+/* art "spill" release animation */
+#artGroup { transform-origin: 320px 200px; transition: none; }
+.released #artGroup { animation: spill .65s cubic-bezier(.5,-0.2,.3,1) forwards; }
+@keyframes spill {
+  40% { transform: translate(40px,-30px) rotate(6deg) scale(1.08); opacity: 1; }
+  100% { transform: translate(150px,-120px) rotate(16deg) scale(1.2); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pull-arrow { animation: none; }
+  .released #artGroup { animation: none; opacity: 0; }
+}
+
+/* ---------- "two worlds" split ---------- */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+.world { border: 1px solid var(--line); border-radius: var(--radius); background: #fff;
+  padding: 30px 30px 26px; transition: transform .16s ease, box-shadow .16s ease; }
+.world:hover { transform: translateY(-3px); box-shadow: 0 16px 34px rgba(33,32,28,.08); }
+.world .tag { font-size: 12.5px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+.world.sci .tag { color: var(--slate); } .world.art .tag { color: var(--rust); }
+.world h3 { font-family: var(--font-display); font-weight: 500; font-size: 27px; margin: 10px 0 10px; }
+.world p { color: var(--ink-soft); margin: 0 0 18px; }
+
+/* ---------- project cards (neuroscience) ---------- */
+.projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.proj { border: 1px solid var(--line); border-radius: var(--radius); background: #fff;
+  padding: 26px 28px; position: relative; transition: transform .16s ease, box-shadow .16s ease; }
+.proj:hover { transform: translateY(-3px); box-shadow: 0 16px 34px rgba(33,32,28,.08); }
+.proj.featured { grid-column: 1 / -1; border-color: var(--accent); background:
+  linear-gradient(0deg, #fff, #fff) padding-box, var(--paper-2); }
+.proj.featured h3 { font-size: 27px; }
+.proj .kind { font-size: 12px; letter-spacing: 1.6px; text-transform: uppercase;
+  font-weight: 600; color: var(--accent); }
+.proj h3 { font-family: var(--font-display); font-weight: 500; font-size: 23px; margin: 8px 0 10px; line-height: 1.15; }
+.proj p { color: var(--ink-soft); margin: 0 0 14px; font-size: 16px; }
+.proj .stat { display: inline-flex; align-items: baseline; gap: 7px; font-size: 14px;
+  color: var(--ink); background: var(--paper-2); border-radius: 6px; padding: 5px 11px; margin: 2px 6px 2px 0; }
+.proj .stat b { font-family: var(--font-display); font-weight: 600; }
+
+/* future / wishlist list */
+.wish { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 18px; }
+.wish li { list-style: none; border-left: 2px solid var(--accent); padding: 4px 0 4px 16px;
+  color: var(--ink); }
+.wish ul { margin: 0; padding: 0; }
+
+/* ---------- CV / timeline ---------- */
+.timeline { border-left: 2px solid var(--line); margin: 0; padding: 0 0 0 26px; }
+.timeline .row { position: relative; padding: 0 0 30px; }
+.timeline .row::before { content: ""; position: absolute; left: -33px; top: 4px; width: 12px; height: 12px;
+  border-radius: 50%; background: var(--paper); border: 2px solid var(--accent); }
+.timeline .when { font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; }
+.timeline h4 { font-family: var(--font-display); font-weight: 500; font-size: 20px; margin: 4px 0 4px; }
+.timeline p { margin: 0; color: var(--ink-soft); font-size: 15.5px; }
+
+/* ---------- galleries (art) ---------- */
+.medium { padding-top: 8px; }
+.medium-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+  border-bottom: 1px solid var(--line); padding-bottom: 14px; margin-bottom: 26px; }
+.medium-head h3 { font-family: var(--font-display); font-weight: 500; font-size: 30px; margin: 0; }
+.medium-head .count { font-size: 14px; color: var(--ink-soft); font-family: var(--font-hand); font-size: 20px; }
+.medium-head .desc { color: var(--ink-soft); font-size: 15px; max-width: 460px; }
+
+.gallery { display: grid; gap: 22px; }
+.gallery.two { grid-template-columns: repeat(2, 1fr); }
+.gallery.three { grid-template-columns: repeat(3, 1fr); }
+
+/* picture in a gallery mat */
+.frame { background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 14px 14px 10px;
+  box-shadow: 0 10px 26px rgba(33,32,28,.07); transition: transform .18s ease, box-shadow .18s ease; }
+.frame:hover { transform: translateY(-4px) rotate(-.3deg); box-shadow: 0 20px 40px rgba(33,32,28,.12); }
+.frame .pic { position: relative; overflow: hidden; border-radius: 3px; background: var(--paper-2);
+  aspect-ratio: 4 / 3; display: grid; place-items: center; }
+.frame .pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.frame figcaption { font-family: var(--font-display); font-style: italic; font-size: 15px;
+  color: var(--ink); margin: 11px 4px 4px; display: flex; justify-content: space-between; gap: 10px; }
+.frame figcaption span.muted { font-style: normal; font-family: var(--font-body); font-size: 12.5px;
+  color: var(--ink-soft); letter-spacing: 1px; text-transform: uppercase; }
+
+/* empty slot placeholder (when an image file isn't added yet) */
+.frame.missing .pic img { display: none; }
+.frame.missing .pic::after { content: "add  " attr(data-file); white-space: pre;
+  font-family: var(--font-body); font-size: 13px; letter-spacing: .5px; color: var(--ink-soft);
+  border: 1.5px dashed var(--line); border-radius: 4px; padding: 14px 18px; text-align: center; }
+.frame .pic.tall { aspect-ratio: 3 / 4; }
+
+/* medium quick-nav (art page) */
+.subnav { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0 50px; }
+.subnav a { text-decoration: none; font-size: 14px; color: var(--ink-soft); font-weight: 500;
+  border: 1px solid var(--line); border-radius: 999px; padding: 7px 16px; transition: all .15s ease; }
+.subnav a:hover { color: var(--paper); background: var(--ink); border-color: var(--ink); }
+
+/* ---------- about ---------- */
+.about-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 48px; align-items: start; }
+.about-grid .prose p { font-size: 18px; margin: 0 0 20px; }
+.about-grid .prose p.big { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.4; color: var(--ink); }
+.sidecard { border: 1px solid var(--line); border-radius: var(--radius); background: #fff; padding: 24px 26px; }
+.sidecard h4 { font-family: var(--font-display); font-weight: 500; margin: 0 0 12px; font-size: 19px; }
+.sidecard ul { margin: 0; padding: 0; list-style: none; }
+.sidecard li { padding: 9px 0; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 12px; }
+.sidecard li:first-child { border-top: 0; }
+.sidecard li span { color: var(--ink-soft); font-size: 14px; }
+
+/* ---------- blog list ---------- */
+.posts { display: flex; flex-direction: column; }
+.post-row { display: flex; align-items: baseline; gap: 22px; justify-content: space-between;
+  padding: 26px 4px; border-top: 1px solid var(--line); text-decoration: none; color: var(--ink);
+  transition: padding-left .18s ease; }
+.post-row:last-child { border-bottom: 1px solid var(--line); }
+.post-row:hover { padding-left: 14px; }
+.post-row h3 { font-family: var(--font-display); font-weight: 500; margin: 0; font-size: clamp(20px,3vw,26px); }
+.post-row .meta { font-size: 13px; color: var(--ink-soft); letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; }
+.post-row .arrow { color: var(--accent); font-size: 20px; }
+
+/* ---------- article ---------- */
+.article { max-width: 720px; margin: 0 auto; padding: 60px 28px 30px; }
+.article .back { text-decoration: none; color: var(--ink-soft); font-size: 14px; }
+.article h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(32px,5vw,50px);
+  line-height: 1.06; margin: 20px 0 10px; letter-spacing: -.5px; }
+.article .meta { color: var(--ink-soft); font-size: 14px; letter-spacing: 1px; text-transform: uppercase; }
+.article-body { margin-top: 30px; font-size: 18px; }
+.article-body p { margin: 0 0 22px; }
+.article-body h2 { font-family: var(--font-display); font-weight: 500; font-size: 27px; margin: 38px 0 12px; }
+.article-body blockquote { margin: 28px 0; padding: 6px 0 6px 22px; border-left: 3px solid var(--accent);
+  font-family: var(--font-display); font-style: italic; font-size: 22px; color: var(--ink); }
+.article-body a { color: var(--rust); }
+.article-body code { background: var(--ink); color: var(--paper); padding: 2px 7px; border-radius: 5px; font-size: 15px; }
+
+/* ---------- footer ---------- */
+.footer { border-top: 1px solid var(--line); padding: 44px 0 60px; margin-top: 30px; }
+.footer .wrap { display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between; align-items: center; }
+.footer small { color: var(--ink-soft); font-family: var(--font-hand); font-size: 19px; }
+.footer .socials { display: flex; gap: 20px; flex-wrap: wrap; }
+.footer .socials a { color: var(--ink-soft); text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: .3px; }
+.footer .socials a:hover { color: var(--accent); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 880px) {
+  .hero { grid-template-columns: 1fr; }
+  .brain-stage { order: -1; min-height: 340px; }
+  .split, .projects, .gallery.two, .gallery.three, .about-grid { grid-template-columns: 1fr; }
+  section { padding: 56px 0; }
+}
+
+/* gallery index: medium cover cards (links) */
+.frame.cover { display: block; text-decoration: none; color: var(--ink); }
+.frame.cover figcaption { font-style: normal; font-family: var(--font-display); font-size: 19px;
+  align-items: center; }
+.frame.cover figcaption .muted { font-family: var(--font-hand); font-size: 18px; letter-spacing: 0;
+  text-transform: none; }
+
+/* clickable images */
+.frame:not(.missing) .pic img { cursor: zoom-in; }
+
+/* lightbox */
+.lightbox { position: fixed; inset: 0; z-index: 200; background: rgba(20,19,16,.93);
+  display: flex; align-items: center; justify-content: center; padding: 4vw;
+  opacity: 0; visibility: hidden; transition: opacity .2s ease; }
+.lightbox.open { opacity: 1; visibility: visible; }
+.lightbox img { max-width: 92vw; max-height: 82vh; object-fit: contain; border-radius: 4px;
+  background: #fff; box-shadow: 0 24px 70px rgba(0,0,0,.55); }
+.lightbox .lb-cap { position: absolute; bottom: 20px; left: 0; right: 0; text-align: center;
+  color: #f6f3ea; font-family: var(--font-display); font-style: italic; font-size: 16px; padding: 0 12px; }
+.lightbox button { position: absolute; background: transparent; border: 0; color: #f6f3ea;
+  cursor: pointer; font-size: 32px; line-height: 1; padding: 12px 16px; opacity: .8; }
+.lightbox button:hover { opacity: 1; }
+.lb-close { top: 8px; right: 12px; font-size: 28px; }
+.lb-prev { left: 6px; top: 50%; transform: translateY(-50%); }
+.lb-next { right: 6px; top: 50%; transform: translateY(-50%); }
+@media (max-width: 600px) { .lb-prev { left: 0; } .lb-next { right: 0; } }
+
+/* reveal on scroll */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+
+/* =========================================================
+   Sunset / hand-drawn theme tuning (@chadeaux)
+   ========================================================= */
+
+/* marker font has a single weight: avoid faux-bold, give it a little air */
+h1, h2, h3, h4, .nav .logo { font-weight: 400; }
+.nav .logo { font-family: "DM Serif Display", Georgia, serif; font-style: italic; font-weight: 400; font-size: 22px; letter-spacing: .2px; }
+
+/* brush-script display sizing (Caveat Brush sits smaller, so size up) */
+.hero .intro h1 { font-size: clamp(46px, 6.6vw, 72px); line-height: 1.0; letter-spacing: 0; }
+.hero .intro h1 em { font-style: normal; color: var(--rust); }
+.section-head h2 { letter-spacing: 0; line-height: 0.98; font-size: clamp(36px, 5.2vw, 54px); }
+.medium-head h3 { font-size: 32px; }
+.eyebrow { font-weight: 600; }
+
+/* eyebrow + links speak in the drawing's blue */
+.eyebrow { color: var(--blue); }
+.nav .links a:hover, .nav .links a.active { color: var(--blue); }
+
+/* captions read like the handwriting in the drawing */
+.frame figcaption { font-family: var(--font-hand); font-style: normal; font-size: 19px; letter-spacing: .3px; }
+.frame figcaption .muted { font-family: var(--font-body); }
+.frame.cover figcaption { font-family: var(--font-display); font-size: 17px; }
+
+/* warm buttons */
+.btn { font-family: var(--font-body); }
+.btn.primary:hover, .btn.blue:hover { background: var(--olive-deep); border-color: var(--olive-deep); color: #fff; }
+.btn.blue { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+/* sub-nav active chip in terracotta */
+.subnav a.active { background: var(--rust); border-color: var(--rust); color: #fff; }
+
+/* a thin sunset horizon under the top nav */
+.nav { border-bottom: 0; box-shadow: 0 2px 0 0 var(--line); }
+.nav::after { content: ""; display: block; height: 3px;
+  background: linear-gradient(90deg, var(--sun), var(--amber) 40%, var(--rust) 70%, var(--olive)); }
+
+/* the medium shortcut cards on the landing, warmed up */
+.world .tag { color: var(--rust); }
+.world.art .tag { color: var(--rust); }
+
+/* ===== free-floating, drifting hand-drawn objects (figs, lemons, spoons, chillies) ===== */
+body { position: relative; }
+.figs-layer { position: absolute; top: 0; left: 0; width: 100%; overflow: hidden;
+  pointer-events: none; z-index: 5; }
+.fig-obj { position: absolute; top: 0; left: 0; pointer-events: none; will-change: transform; }
+.fig-obj svg { width: 100%; height: 100%; display: block; overflow: visible; }
