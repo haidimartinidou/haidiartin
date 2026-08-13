@@ -118,6 +118,7 @@ section { padding: 76px 0; position: relative; }
 /* ---------- hero (landing) ---------- */
 .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
   padding: 64px 0 40px; }
+.hero > * { min-width: 0; }
 .hero .intro h1 { font-family: var(--font-display); font-weight: 500;
   font-size: clamp(40px, 6vw, 68px); line-height: 1.02; letter-spacing: -1px; margin: 18px 0 18px; }
 .hero .intro h1 em { font-style: italic; color: var(--accent); }
@@ -394,6 +395,9 @@ body { position: relative; }
   pointer-events: none; z-index: 5; }
 .fig-obj { position: absolute; top: 0; left: 0; pointer-events: none; will-change: transform; }
 .fig-obj svg { width: 100%; height: 100%; display: block; overflow: visible; }
+/* on narrow screens there's much less empty margin for these to drift through
+   without crossing body text, so fade them so text stays legible underneath */
+@media (max-width: 760px) { .fig-obj { opacity: .55; } }
 
 /* writing / typewriter article list */
 .writing-list { margin-top: 24px; border-top: 1px solid var(--line); }

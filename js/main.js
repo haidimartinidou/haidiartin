@@ -241,7 +241,6 @@
     for (const ch of text) {
       const span = document.createElement("span");
       span.textContent = ch;
-      span.style.whiteSpace = "pre";
       if (ch !== " ") { span.style.color = palette[ci % palette.length]; ci++; }
       el.appendChild(span);
     }
